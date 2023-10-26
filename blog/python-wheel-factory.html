@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml" dir="ltr" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    <title>A Python Wheel Factory - ArrayStream</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- globalise scripting and styling content language-->
+    <meta name="Content-Type-Script" content="text/javascript">
+    <meta name="Content-Type-Style" content="text/css">
+
+
+
+
+<link rel="canonical" href="http://www.arraystream.com/blog/python-wheel-factory.html">
+
+        <meta name="author" content="Ran Fan" />
+        <meta name="description" content="This article describes how to maintain a set of wheels for the development and deployment of your python application" />
+
+        <meta property="og:site_name" content="ArrayStream" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="A Python Wheel Factory"/>
+        <meta property="og:url" content="http://www.arraystream.com/blog/python-wheel-factory.html"/>
+        <meta property="og:description" content="This article describes how to maintain a set of wheels for the development and deployment of your python application"/>
+        <meta property="article:published_time" content="2016-08-04" />
+            <meta property="article:section" content="blog" />
+            <meta property="article:author" content="Ran Fan" />
+
+    <!-- #####Begin styles-->
+    <!-- stylesheets	-->
+    <link href="http://www.arraystream.com/theme/assets/css/vendors/vendors.css" rel="stylesheet" type="text/css">
+    <!-- Load extra page specific css-->
+    <!-- Overwrite vendors-->
+    <link href="http://www.arraystream.com/theme/assets/css/vendors/vendors-overwrites.css" rel="stylesheet" type="text/css">
+    <link href="http://www.arraystream.com/theme/assets/css/styles.css" rel="stylesheet" type="text/css">
+    <link href="http://www.arraystream.com/theme/assets/css/arraystream-main.css" rel="stylesheet" type="text/css">
+    <!-- #####End styles-->
+    <!-- #####Begin JS-->
+    <!-- add your scripts to the end of the page for sake of page load speed-->
+    <!-- scripts that need to be at head section-->
+    <script src="http://www.arraystream.com/theme/assets/js/vendors/jquery.min.js"></script>
+    <!-- #####End JS-->
+    <!-- #####Begin load google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Play:400,700&amp;subset=latin,greek,cyrillic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Sintony:400,700&amp;subset=latin,greek,cyrillic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:300,300italic,400,400italic,700,700italic&amp;subset=latin,greek,cyrillic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Exo+2:400,200,300,400italic,500,700,900&amp;subset=latin,greek,cyrillic" rel="stylesheet" type="text/css">
+    <!-- #####End load google fonts-->
+
+    <link href="http://www.arraystream.com/theme/css/pygments/perldoc.css" rel="stylesheet">
+  </head>
+
+  <body class="fullwidth sticky-header">
+    <div id="wrapper" class="regular-layout">
+      <!-- #####Begin Header-->
+      <header id="header" class=" dark">
+        <div class="head-main">
+          <div class="container">
+            <!-- logo-->
+            <!-- #####Begin logo wrapper-->
+            <div class="logo-wrapper">
+            </div>
+            <!-- #####End logo wrapper-->
+            <!-- primary navigation-->
+            <ul id="primary-menu">
+              <li><a href="http://www.arraystream.com/" title="Home"><span>Home</span></a></li>
+              <li><a href="http://www.arraystream.com/blog/" title="Blog"><span>Blog</span></a></li>
+              <li><a href="http://www.arraystream.com/about/" title="About"><span>About</span></a></li>
+                </ul>
+
+            <div class="header-icons">
+              <!-- #####Begin mobile menu trigger-->
+              <div class="ol-mobile-trigger hamburger hamburger--elastic">
+                <div class="hamburger-box">
+                  <div class="hamburger-inner"></div>
+                </div>
+              </div>
+              <!-- #####End mobile menu trigger-->
+            </div>
+          </div>
+        </div>
+      </header>
+      <!-- #####End Header-->
+      <!-- #####Begin contents-->
+      <section id="contents">
+        <!-- #####Begin page head-->
+        <div class="page-head h-600 parallax-layer center-it dark ov-blue-alpha-60" data-img-src="http://www.arraystream.com/theme/assets/img/bg/001.jpg" data-parallax-mode="mode-title">
+          <div class="container">
+            <div class="tb-vcenter-wrapper">
+              <div class="title-wrapper vcenter">
+                <h4 class="head">blog</h4>
+                <h1 class="title">A Python Wheel Factory</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- #####End page head
+        -->
+        <section class="page-contents">
+          <!-- #####Begin main area-->
+          <section id="main-area">
+<section class="section slim-container">
+    <div id="content" class="container">
+        <div class="single-post large-typo">
+            <!-- #####Begin post metadata-->
+            <div class="post-metas center-meta">
+                <a href="#" class="avatar avatar-sm">
+                    <!--<img src="http://www.arraystream.com/theme/assets/img/avatar.jpgXX">-->
+                </a>
+                <ul class="meta">
+                    <li class="author">by
+                        <a href="http://www.arraystream.com/blog/author/ran-fan.html">Ran Fan </a> /
+                    </li>
+                    <li class="publish_date">
+                        on <span class="date"><time datetime="2016-08-04T00:00:00+01:00"> Thu 04 August 2016</time></span>
+                    </li>
+                    <li class="publish_date">
+                        modified <span class="date"><time datetime="2017-01-04T00:00:00+00:00"> Wed 04 January 2017</time></span>
+                    </li>
+                </ul>
+            </div>
+            <!-- #####End post metadata-->
+            <!-- #####Begin post contents-->
+            <div class="post-body">
+                <h2>Introduction</h2>
+<p>In this blog post I will describe how to maintain a Python wheel cache for development and deployment purposes.
+There are numerous benefits to maintaining a proper wheel cache, such as:</p>
+<ul>
+<li>
+<p>Consistent package versions / repeatable builds.</p>
+</li>
+<li>
+<p>No need to hit the internet for dependencies. For production deployments it is a really bad idea to have a dependency
+on the internet, what if <a href="https://pypi.python.org/pypi">pypi.org</a> is down?</p>
+</li>
+<li>
+<p>Much faster installation of packages. In this day and age, having to wait for minutes for gcc to churn through is
+really not acceptable.</p>
+</li>
+<li>
+<p>Less build time dependencies. Because the packages are prebuilt, there is no need for the target machine to
+have particular header files and devel-* packages installed. Packages that interacts with native code only needs the
+runtime libraries installed.</p>
+</li>
+</ul>
+<p>Python package management remains a pain point for many users, despite many positive developments in this
+particular space.</p>
+<p>In terms of how to get a Python environment up and running effectively (excluding docker), my observation is that
+practically there are really just two:</p>
+<ul>
+<li>
+<p>Use pip with wheels. <a href="https://www.python.org/dev/peps/pep-0427/">Wheels</a> have been around for a while now and is
+the successor to <a href="http://peak.telecommunity.com/DevCenter/PythonEggs">Eggs</a>. Wheels are
+essentially pre-compiled platform specific python packages. For Windows this has been indispensable as lots of packages
+are difficult to build on Windows. A recent development in this space is the support for manylinux wheels - these are
+native wheel packages that work on any Linux (almost).</p>
+</li>
+<li>
+<p>Use Anaconda. Anaconda is a Python distribution especially suited for scientific users and
+comes with popular and traditionally hard to install packages such as numpy and scipy pre-installed.
+For new Python users Anaconda's out of the box experience is fantastic as most things "just work". Anaconda has its
+own package repository and ships with the "conda" tool to interact with it. Most commonly used packages can be
+installed with conda command, but if one is not available, pip can also be used.</p>
+</li>
+</ul>
+<p>I will discuss pip and python wheels here. Anaconda is for another day.</p>
+<h2>A step by step tutorial of creating a wheel cache</h2>
+<p>The goal is simple - we want to produce a set of *.whl files given a requirement.txt file.</p>
+<p>Let's imagine we are building an app requiring machine learning tools plus a couple of additional numerical and
+optimization tools, something like this:</p>
+<ul>
+<li>
+<p>numpy + scipy</p>
+</li>
+<li>
+<p>scikit-learn</p>
+</li>
+<li>
+<p>autograd</p>
+</li>
+<li>
+<p>cvxopt</p>
+</li>
+<li>
+<p>xgboost</p>
+</li>
+</ul>
+<p>Also, let's assume that we are only targeting Python 3.5 on CentOS 7, i.e. no manylinux.</p>
+<p>To use Python 3 on CentOS 7, the easiest solution is to use
+<a href="https://www.softwarecollections.org/en/scls/rhscl/rh-python35/">SCL</a> or
+<a href="https://ius.io/">IUS</a> repo.</p>
+<p>Ok, start by creating a simple requirements file, call this requirements-ml.txt</p>
+<div class="highlight"><pre><span></span>$ python3.5 -m venv wheelfactory
+$ <span class="nb">source</span> wheelfactory/bin/activate
+<span class="o">(</span>wheelfactory<span class="o">)</span> $ cat requirements-ml.txt
+numpy
+scipy
+scikit-learn
+autograd
+cvxopt
+xgboost
+</pre></div>
+
+
+<p>Note that I've created a fresh Python 3.5 based virtual environment. Let's see what happens when we issue
+<code>pip wheel requirements-ml.txt</code>. The command is pretty self-explanatory, after all!</p>
+<div class="highlight"><pre><span></span><span class="o">(</span>wheelfactory<span class="o">)</span> $ pip wheel requirements-ml.txt
+ERROR: <span class="s1">&#39;pip wheel&#39;</span> requires the <span class="s1">&#39;wheel&#39;</span> package. To fix this, run: pip install wheel
+You are using pip version <span class="m">8</span>.1.2, however version <span class="m">9</span>.0.1 is available.
+You should consider upgrading via the <span class="s1">&#39;pip install --upgrade pip&#39;</span> command.
+</pre></div>
+
+
+<p>And we hit a problem already. This one is easy to fix, we just need to install the wheel package.
+While we are at it, let's upgrade setuptools and pip too.</p>
+<div class="highlight"><pre><span></span><span class="o">(</span>wheelfactory<span class="o">)</span> $ pip install --upgrade pip setuptools wheel
+...
+Successfully installed appdirs-1.4.0 packaging-16.8 pip-9.0.1 pyparsing-2.1.10 setuptools-34.1.0 six-1.10.0 wheel-0.29.0
+</pre></div>
+
+
+<p>Rerun <code>pip wheel requirements-ml.txt</code></p>
+<div class="highlight"><pre><span></span><span class="o">(</span>wheelfactory<span class="o">)</span> $ pip wheel -r requirements-ml.txt
+Collecting numpy <span class="o">(</span>from -r requirements-ml.txt <span class="o">(</span>line <span class="m">1</span><span class="o">))</span>
+  Downloading numpy-1.12.0-cp35-cp35m-manylinux1_x86_64.whl <span class="o">(</span><span class="m">16</span>.8MB<span class="o">)</span>
+    <span class="m">100</span>% <span class="p">|</span>████████████████████████████████<span class="p">|</span> <span class="m">16</span>.8MB 103kB/s
+  Saved ./numpy-1.12.0-cp35-cp35m-manylinux1_x86_64.whl
+Collecting scipy <span class="o">(</span>from -r requirements-ml.txt <span class="o">(</span>line <span class="m">2</span><span class="o">))</span>
+  Downloading scipy-0.18.1-cp35-cp35m-manylinux1_x86_64.whl <span class="o">(</span><span class="m">42</span>.0MB<span class="o">)</span>
+    <span class="m">100</span>% <span class="p">|</span>████████████████████████████████<span class="p">|</span> <span class="m">42</span>.0MB 42kB/s
+  Saved ./scipy-0.18.1-cp35-cp35m-manylinux1_x86_64.whl
+Collecting scikit-learn <span class="o">(</span>from -r requirements-ml.txt <span class="o">(</span>line <span class="m">3</span><span class="o">))</span>
+  Downloading scikit_learn-0.18.1-cp35-cp35m-manylinux1_x86_64.whl <span class="o">(</span><span class="m">11</span>.7MB<span class="o">)</span>
+    <span class="m">100</span>% <span class="p">|</span>████████████████████████████████<span class="p">|</span> <span class="m">11</span>.7MB 136kB/s
+  Saved ./scikit_learn-0.18.1-cp35-cp35m-manylinux1_x86_64.whl
+Collecting autograd <span class="o">(</span>from -r requirements-ml.txt <span class="o">(</span>line <span class="m">4</span><span class="o">))</span>
+  Downloading autograd-1.1.7.tar.gz
+    Complete output from <span class="nb">command</span> python setup.py egg_info:
+...
+      File <span class="s2">&quot;/tmp/easy_install-uh0o14bb/scipy-0.18.1/setup.py&quot;</span>, line <span class="m">395</span>, in setup_package
+    ImportError: No module named <span class="s1">&#39;numpy&#39;</span>
+
+    ----------------------------------------
+Command <span class="s2">&quot;python setup.py egg_info&quot;</span> failed with error code <span class="m">1</span> in /tmp/pip-build-oyiomxeq/autograd/
+</pre></div>
+
+
+<p>Hmm, looks like we've bumped into another issue here. What's happening is that in order to create the autograd
+wheel, the setup process needs numpy to be <strong>installed</strong> already. It is worth noting that as of this revised blog post,
+numpy, scipy and scikit-learn are already available as pre-built manylinux wheels, as can be seen from pip's output.</p>
+<p>Now, let's install numpy, followed by wheel command again</p>
+<div class="highlight"><pre><span></span><span class="o">(</span>wheelfactory<span class="o">)</span> $ pip install numpy
+Collecting numpy
+  Using cached numpy-1.12.0-cp35-cp35m-manylinux1_x86_64.whl
+Installing collected packages: numpy
+Successfully installed numpy-1.12.0
+
+<span class="o">(</span>wheelfactory<span class="o">)</span> $ pip wheel -r requirements-ml.txt
+...
+Building wheels <span class="k">for</span> collected packages: cvxopt
+  Running setup.py bdist_wheel <span class="k">for</span> cvxopt ... error
+  src/C/umfpack.c:23:21: fatal error: umfpack.h: No such file or directory
+   <span class="c1">#include &quot;umfpack.h&quot;</span>
+                       ^
+  compilation terminated.
+  error: <span class="nb">command</span> <span class="s1">&#39;gcc&#39;</span> failed with <span class="nb">exit</span> status <span class="m">1</span>
+</pre></div>
+
+
+<p>Failed again. This time it's cvxopt. According to the <a href="http://cvxopt.org/install/">cvxopt docs</a>
+the latest version (1.19) needs suitesparse, so we'll need to grab that, and export some environment variables.</p>
+<div class="highlight"><pre><span></span><span class="o">(</span>wheelfactory<span class="o">)</span> $ sudo yum -y install suitesparse suitesparse-devel
+<span class="o">(</span>wheelfactory<span class="o">)</span> $ <span class="nv">CVXOPT_SUITESPARSE_INC_DIR</span><span class="o">=</span>/usr/include/suitesparse pip wheel -r requirements-ml.txt
+...
+Successfully built autograd cvxopt xgboost future
+</pre></div>
+
+
+<p>Finally, success! What we have now is a bunch of whl files that can be used re-used quickly to get an environment ready.</p>
+<h2>Making use of the wheel cache</h2>
+<p>Now that we have produced a bunch of whl files, how do we actually make use of them?</p>
+<p>The most straightforward way is to simply <code>pip install &lt;wheel file&gt;</code>.
+Of course this is only fine for an ad-hoc install.</p>
+<p>In order to treat the wheels as a first class repository, copy the *.whl files somewhere, say <code>/path/to/wheels</code>.
+We then tell <code>pip install</code> where to look for them:</p>
+<div class="highlight"><pre><span></span>pip install --no-index --no-cache-dir --find-links<span class="o">=</span>file:///path/to/wheels &lt;package&gt;
+</pre></div>
+
+
+<p>You can also serve the wheels via http(s) by sticking them behind nginx, or upload them to a dedicated
+repository manager such as <a href="http://doc.devpi.net/latest/">devpi</a>,
+<a href="https://www.jfrog.com/artifactory/">Artifactory</a> or <a href="https://www.sonatype.com/nexus-repository-sonatype">Nexus</a>.
+To install from http(s), use:</p>
+<div class="highlight"><pre><span></span>pip install --no-index --no-cache-dir --find-links<span class="o">=</span>https://my.repo.site/wheels &lt;package&gt;
+</pre></div>
+
+
+<p><strong>Note:</strong> For plain http, you must also supply <code>--trusted-host=my.repo.site</code> to the above command.</p>
+<p>I use tox for automated CI build, and my tox.ini looks something like this:</p>
+<div class="highlight"><pre><span></span><span class="k">[testenv]</span>
+<span class="na">install_command</span> <span class="o">=</span> <span class="s">pip install --no-index --no-cache-dir --find-links=http://repo.arraystream.com/python/wheelhouse --trusted-host=repo.arraystream.com {opts} {packages}</span>
+<span class="na">deps</span> <span class="o">=</span><span class="s"></span>
+<span class="s">    -r{toxinidir}/requirements.txt</span>
+<span class="s">    -r{toxinidir}/requirements-test.txt</span>
+</pre></div>
+
+
+<h2>Making the process repeatable</h2>
+<h3>Fixing the version numbers</h3>
+<p>In the example <code>requirements-ml.txt</code> above, the libraries are declared without versions. This
+is bad as the version can suddenly change and results in builds that are not repeatable. The easiest way to fix this
+is to install the requirements and generate a new requirements.txt file with pinned versions using <code>pip freeze</code>:</p>
+<div class="highlight"><pre><span></span>$ pip install --no-index --no-cache-dir --find-links<span class="o">=</span>. -r requirements-ml.txt
+$ pip freeze &gt; requirements-ml-versioned.txt
+<span class="o">(</span>wheelfactory<span class="o">)</span> $ cat requirements-ml-versioned.txt
+<span class="nv">appdirs</span><span class="o">==</span><span class="m">1</span>.4.0
+<span class="nv">autograd</span><span class="o">==</span><span class="m">1</span>.1.7
+<span class="nv">cvxopt</span><span class="o">==</span><span class="m">1</span>.1.9
+<span class="nv">future</span><span class="o">==</span><span class="m">0</span>.16.0
+<span class="nv">numpy</span><span class="o">==</span><span class="m">1</span>.12.0
+<span class="nv">packaging</span><span class="o">==</span><span class="m">16</span>.8
+<span class="nv">pyparsing</span><span class="o">==</span><span class="m">2</span>.1.10
+scikit-learn<span class="o">==</span><span class="m">0</span>.18.1
+<span class="nv">scipy</span><span class="o">==</span><span class="m">0</span>.18.1
+<span class="nv">six</span><span class="o">==</span><span class="m">1</span>.10.0
+<span class="nv">xgboost</span><span class="o">==</span><span class="m">0</span>.6a2
+</pre></div>
+
+
+<p>The astute reader will notice that the output from pip freeze contains extra libraries. These are transitive
+dependencies that are required by the packages specified in <code>requirements-ml.txt</code>.</p>
+<h3>Reusing wheels</h3>
+<p>By default wheels will be placed in the current directory. Also, If you've followed the above steps, you might have
+noticed that autograd was built multiple times, even though a wheel already exists. This is because pip by default
+asks PyPI for existence of the wheel package, and since autograd has no wheel in PyPI, it was rebuilt. We must tell pip
+where to look for wheels if we want to avoid rebuilding it unnecessarily.</p>
+<div class="highlight"><pre><span></span>pip wheel -r requirements-ml.txt --no-index --find-links<span class="o">=</span>file:///path/to/wheels
+</pre></div>
+
+
+<h3>Specifying pip download cache</h3>
+<p>By default pip will cache downloaded files in ~/.cache/pip. We can override this easily with the <code>--cache-dir</code> flag</p>
+<h3>Installing the dependencies</h3>
+<p>I normally use the following when doing deployments:</p>
+<div class="highlight"><pre><span></span>pip install --no-index --no-cache-dir --find-links<span class="o">=</span>file:///path/to/wheels
+</pre></div>
+
+
+<p>The <code>--no-index</code> flag tells pip to only look for packages specified by <code>--find-links</code>, and ignore PyPI.
+<code>--no-cache-dir</code> disables the download cache, since we are deploying from local storage already.</p>
+<h3>Automating the process</h3>
+<p>By now we've got a good idea of how to work with python wheels. It would be valuable to encapsulate the process
+in a script so that we can quickly repeat the process. The gist below is my attempt to codify the process.
+Hopefully most of it make sense. Comments are welcome!</p>
+<p>Run it with <code>python generate_generate_wheels.py -r requirements-ml.txt -o wheelfactory</code>. After the script finishes,
+it produces the following directory structure within wheelfactory:</p>
+<div class="highlight"><pre><span></span>└── wheelfactory
+    ├── cache
+    ├── requirements-versioned.txt
+    ├── venv
+    └── wheels
+</pre></div>
+
+
+<p>Wheels files (*.whl) are all in <code>wheels</code>, <code>cache</code> is the pip cache (http and built wheels during setup.py),
+venv is the clean virtual environment used for generating wheels, and <code>requirements-versioned.txt</code> contains the output
+of <code>pip freeze</code> after all the packages in <code>requirements-ml.txt</code> have been installed, including all transitive
+dependencies, as well as pip, setuptools and wheel.</p>
+<style type="text/css">
+.gist {
+    margin-bottom: 20px;
+}
+.gist-data {
+    height:550px;
+    overflow-y: visible;
+}
+</style>
+
+<script src="https://gist.github.com/arraystream/fa51e902fd51d5be3e5c4b60b6d49741.js"></script>
+
+<h2>Why not Anaconda?</h2>
+<p>The above process is certainly painful, the key reason being the install time dependencies (numpy) and third party
+libraries (suitesparse). Which raises the question, why not simply use Anaconda? It is true that Anaconda solves this
+very problem, so if you already use it and are comfortable, you will be fine sticking with it. I don't want to get
+into a debate about pip vs conda as they serve different purposes, I simply want to highlight some important
+concepts with pip/wheel with an example.</p>
+<h2>What about docker?</h2>
+<p>Docker is really, really great. That said you definitely want reproducible docker builds, and the processes described
+here is very much applicable in producing that golden docker image in an repeatable and automated way.</p>
+<h2>Libraries not in PyPI</h2>
+<p>You will have to manage these on a case-by-case basis. E.g. Google provides pre-built wheels (CPU and GPU)
+for tensorflow. If you are lucky enough to be using a recent Linux OS, then the Ubuntu *.whl should work just fine,
+all you need to do is copy it to the wheel cache directory or upload to your favourite repository manager.
+If a pre-built wheel is not available, sadly there's a little bit more fiddling to do.
+I'll touch upon these in another blog post.</p>
+            </div>
+            <!-- #####End post contents-->
+        </div>
+    </div>
+</section>
+<div class="row slim-container">
+    <div class="container">
+        <div class="sp-line-0"></div>
+    </div>
+</div>
+<section id="comments" class="section slim-container bg-gray">
+    <div class="container">
+    <hr/>
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'arraystream'; // required: replace example with your forum shortname
+
+                    var disqus_identifier = 'python-wheel-factory';
+                var disqus_url = 'http://www.arraystream.com/blog/python-wheel-factory.html';
+
+            var disqus_config = function () {
+                this.language = "en";
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+    </div>
+</section>
+          </section>
+          <!-- #####End main area
+          -->
+          <div class="clearfix"></div>
+        </section>
+      </section>
+      <!-- #####End contents-->
+
+<footer id="footer" data-img-src="http://www.arraystream.com/theme/assets/img/bg/002.png" class="set-bg">
+    <div id="footer-main">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 col-sm-12 m-bottom-sm-40">
+                    <div class="sp-blank-30"></div>
+                    <p>Email us: <a href="mailto:info@arraystream.com">info@arraystream.com</a></p>
+                    <ul class="social-icons shape-circle">
+                        <li><a href="https://github.com/arraystream"><i class="fa fa-github"></i></a></li>
+                        <li><a href="https://twitter.com/arraystream"><i class="fa fa-twitter"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="footer-bar">
+        <div class="container">
+            <div class="row tb-vcenter-wrapper bottom-bar">
+                <div class="col-sm-6 vcenter">
+                    <div class="copyright">ArrayStream 2017</div>
+                </div>
+                <div class="col-sm-6 vcenter">
+                    <ul class="footer-menu text-right-md">
+                        <li><a href="http://www.arraystream.com/" title="Home"><span>Home</span></a></li>
+                        <li><a href="http://www.arraystream.com/blog/" title="Blog"><span>Blog</span></a></li>
+                        <li><a href="http://www.arraystream.com/about/" title="About"><span>About</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</div>
+
+    <!-- Disqus -->
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'arraystream'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script');
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
+    <!-- End Disqus Code -->
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-91364292-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+
+<!-- #####Begin scripts-->
+<script src="http://www.arraystream.com/theme/assets/js/vendors/vendors.js"></script>
+<script src="http://www.arraystream.com/theme/assets/js/custom.js"></script>
+<!-- #####End scripts-->  </body>
+</html>

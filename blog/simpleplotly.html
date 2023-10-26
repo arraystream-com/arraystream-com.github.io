@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml" dir="ltr" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    <title>SimplePlotly - ArrayStream</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- globalise scripting and styling content language-->
+    <meta name="Content-Type-Script" content="text/javascript">
+    <meta name="Content-Type-Style" content="text/css">
+
+
+
+
+<link rel="canonical" href="http://www.arraystream.com/blog/simpleplotly.html">
+
+        <meta name="author" content="Yu Zheng" />
+        <meta name="description" content="An easy to use plotly wrapper for python / jupyter notebooks" />
+
+        <meta property="og:site_name" content="ArrayStream" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="SimplePlotly"/>
+        <meta property="og:url" content="http://www.arraystream.com/blog/simpleplotly.html"/>
+        <meta property="og:description" content="An easy to use plotly wrapper for python / jupyter notebooks"/>
+        <meta property="article:published_time" content="2017-03-27" />
+            <meta property="article:section" content="blog" />
+            <meta property="article:author" content="Yu Zheng, Ran Fan" />
+
+    <!-- #####Begin styles-->
+    <!-- stylesheets	-->
+    <link href="http://www.arraystream.com/theme/assets/css/vendors/vendors.css" rel="stylesheet" type="text/css">
+    <!-- Load extra page specific css-->
+    <!-- Overwrite vendors-->
+    <link href="http://www.arraystream.com/theme/assets/css/vendors/vendors-overwrites.css" rel="stylesheet" type="text/css">
+    <link href="http://www.arraystream.com/theme/assets/css/styles.css" rel="stylesheet" type="text/css">
+    <link href="http://www.arraystream.com/theme/assets/css/arraystream-main.css" rel="stylesheet" type="text/css">
+    <!-- #####End styles-->
+    <!-- #####Begin JS-->
+    <!-- add your scripts to the end of the page for sake of page load speed-->
+    <!-- scripts that need to be at head section-->
+    <script src="http://www.arraystream.com/theme/assets/js/vendors/jquery.min.js"></script>
+    <!-- #####End JS-->
+    <!-- #####Begin load google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Play:400,700&amp;subset=latin,greek,cyrillic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Sintony:400,700&amp;subset=latin,greek,cyrillic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:300,300italic,400,400italic,700,700italic&amp;subset=latin,greek,cyrillic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Exo+2:400,200,300,400italic,500,700,900&amp;subset=latin,greek,cyrillic" rel="stylesheet" type="text/css">
+    <!-- #####End load google fonts-->
+
+    <link href="http://www.arraystream.com/theme/css/pygments/perldoc.css" rel="stylesheet">
+  </head>
+
+  <body class="fullwidth sticky-header">
+    <div id="wrapper" class="regular-layout">
+      <!-- #####Begin Header-->
+      <header id="header" class=" dark">
+        <div class="head-main">
+          <div class="container">
+            <!-- logo-->
+            <!-- #####Begin logo wrapper-->
+            <div class="logo-wrapper">
+            </div>
+            <!-- #####End logo wrapper-->
+            <!-- primary navigation-->
+            <ul id="primary-menu">
+              <li><a href="http://www.arraystream.com/" title="Home"><span>Home</span></a></li>
+              <li><a href="http://www.arraystream.com/blog/" title="Blog"><span>Blog</span></a></li>
+              <li><a href="http://www.arraystream.com/about/" title="About"><span>About</span></a></li>
+                </ul>
+
+            <div class="header-icons">
+              <!-- #####Begin mobile menu trigger-->
+              <div class="ol-mobile-trigger hamburger hamburger--elastic">
+                <div class="hamburger-box">
+                  <div class="hamburger-inner"></div>
+                </div>
+              </div>
+              <!-- #####End mobile menu trigger-->
+            </div>
+          </div>
+        </div>
+      </header>
+      <!-- #####End Header-->
+      <!-- #####Begin contents-->
+      <section id="contents">
+        <!-- #####Begin page head-->
+        <div class="page-head h-600 parallax-layer center-it dark ov-blue-alpha-60" data-img-src="http://www.arraystream.com/theme/assets/img/bg/001.jpg" data-parallax-mode="mode-title">
+          <div class="container">
+            <div class="tb-vcenter-wrapper">
+              <div class="title-wrapper vcenter">
+                <h4 class="head">blog</h4>
+                <h1 class="title">SimplePlotly</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- #####End page head
+        -->
+        <section class="page-contents">
+          <!-- #####Begin main area-->
+          <section id="main-area">
+<section class="section slim-container">
+    <div id="content" class="container">
+        <div class="single-post large-typo">
+            <!-- #####Begin post metadata-->
+            <div class="post-metas center-meta">
+                <a href="#" class="avatar avatar-sm">
+                    <!--<img src="http://www.arraystream.com/theme/assets/img/avatar.jpgXX">-->
+                </a>
+                <ul class="meta">
+                    <li class="author">by
+                        <a href="http://www.arraystream.com/blog/author/yu-zheng.html">Yu Zheng </a> /
+                        <a href="http://www.arraystream.com/blog/author/ran-fan.html">Ran Fan </a> /
+                    </li>
+                    <li class="publish_date">
+                        on <span class="date"><time datetime="2017-03-27T00:00:00+01:00"> Mon 27 March 2017</time></span>
+                    </li>
+                </ul>
+            </div>
+            <!-- #####End post metadata-->
+            <!-- #####Begin post contents-->
+            <div class="post-body">
+                
+                <iframe id="jupyter-notebook-iframe" class="render-viewer" src="http://www.arraystream.com/notebooks/simple-plotly-blog.html"></iframe>
+                <script type="text/javascript">
+                    var jupyterIframe = document.getElementById('jupyter-notebook-iframe');
+
+                    var resizeId;
+                    $(window).resize(function () {
+                        clearTimeout(resizeId);
+                        resizeId = setTimeout(function () {
+                            doneResizing();
+                        }, 500);
+                    });
+
+                    function doneResizing() {
+                        jupyterIframe.style.height = jupyterIframe.contentDocument.body.scrollHeight + 'px';
+                    }
+
+                    window.onload = doneResizing;
+                </script>
+            </div>
+            <!-- #####End post contents-->
+        </div>
+    </div>
+</section>
+<div class="row slim-container">
+    <div class="container">
+        <div class="sp-line-0"></div>
+    </div>
+</div>
+<section id="comments" class="section slim-container bg-gray">
+    <div class="container">
+    <hr/>
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'arraystream'; // required: replace example with your forum shortname
+
+                    var disqus_identifier = 'simpleplotly';
+                var disqus_url = 'http://www.arraystream.com/blog/simpleplotly.html';
+
+            var disqus_config = function () {
+                this.language = "en";
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+    </div>
+</section>
+          </section>
+          <!-- #####End main area
+          -->
+          <div class="clearfix"></div>
+        </section>
+      </section>
+      <!-- #####End contents-->
+
+<footer id="footer" data-img-src="http://www.arraystream.com/theme/assets/img/bg/002.png" class="set-bg">
+    <div id="footer-main">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 col-sm-12 m-bottom-sm-40">
+                    <div class="sp-blank-30"></div>
+                    <p>Email us: <a href="mailto:info@arraystream.com">info@arraystream.com</a></p>
+                    <ul class="social-icons shape-circle">
+                        <li><a href="https://github.com/arraystream"><i class="fa fa-github"></i></a></li>
+                        <li><a href="https://twitter.com/arraystream"><i class="fa fa-twitter"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="footer-bar">
+        <div class="container">
+            <div class="row tb-vcenter-wrapper bottom-bar">
+                <div class="col-sm-6 vcenter">
+                    <div class="copyright">ArrayStream 2017</div>
+                </div>
+                <div class="col-sm-6 vcenter">
+                    <ul class="footer-menu text-right-md">
+                        <li><a href="http://www.arraystream.com/" title="Home"><span>Home</span></a></li>
+                        <li><a href="http://www.arraystream.com/blog/" title="Blog"><span>Blog</span></a></li>
+                        <li><a href="http://www.arraystream.com/about/" title="About"><span>About</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</div>
+
+    <!-- Disqus -->
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'arraystream'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script');
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
+    <!-- End Disqus Code -->
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-91364292-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+
+<!-- #####Begin scripts-->
+<script src="http://www.arraystream.com/theme/assets/js/vendors/vendors.js"></script>
+<script src="http://www.arraystream.com/theme/assets/js/custom.js"></script>
+<!-- #####End scripts-->  </body>
+</html>
